@@ -1,0 +1,9 @@
+POST HTTP://localhost:4000/api/blogs/new-blog HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "titulo de prueba 2",
+    "tags": ["tag1", "tag2", "tag3"],
+    "cardImage": "img2",
+    "content": "contenido 2"
+}

@@ -5,18 +5,23 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon server.js" 
+    "dev": "NODE_ENV=development node --watch server.js",
+    "start": "NODE_ENV=prod node server.js",
+    "test": "NODE_ENV=test jest"
   },
   "keywords": [
     "node",
     "js"
   ],
   "author": "Fabian Rivero",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.21.0"
+    "express": "^4.21.0",
+    "mongoose": "^8.6.2"
   },
   "devDependencies": {
+    "dotenv": "^16.4.5",
+    "morgan": "^1.10.0",
     "nodemon": "^3.1.4"
   }
 }
