@@ -4,18 +4,28 @@ import Blog from '../models/blog.js';
 const router = express.Router();
 
 //para obtener todos los blogs
-router.get('/blogs', (req, res) => {
-    const data = readData();
-    res.json(data.blogs);
-})
+router.get('/all-blogs', async (req, res) => {
+    try {
+        const blogs = await Blog.find({});
+        res.status(200).json({blogs: blogs});    
+    } catch (error) {
+        res.status(500).send({ message: "Server Error " + error.message });
+    }
+});
 
 //para obtener un blog en especifico
-router.get("/blogs/:id", (req, res) => {
-    const data = readData();
-    const id = parseInt(req.params.id);
-    const blog = data.blogs.find((blog) => blog.id === id);
-    res.json(blog);
-})
+router.get("/:id", async (req, res) => {
+try {
+    //const blog = await Blog.findById(req.params.id); este metodo usa el id de mongoose
+    const blog = await Blog.findOne({ id: req.params.id });
+    if (!blog) {
+        return res.status(404).json({ message: "Blog not found" });
+    }
+    res.status(200).json({ blog: blog })
+} catch (error) {
+    res.status(500).json({ message: "Server error " + error.message })
+}
+});
 
 //para crear un nuevo blog
 //POST api/blogs/new-blog
@@ -33,6 +43,7 @@ router.post("/new-blog", async (req, res) => {
     });
     try {
         await blog.save();
+        res.status(200).json({ blog: blog });
     } catch (error) {
         res.status(500).send('something went wrong.', error);
     };
@@ -44,27 +55,31 @@ router.post("/new-blog", async (req, res) => {
 });
 
 //para editar un blog existente
-router.put('/blogs/:id', (req, res) => {
-    const data = readData();
-    const body = req.body;
-    const id = parseInt(req.params.id);
-    const blogIndex = data.blogs.findIndex((blog) => blog.id === id);
-    data.blogs[blogIndex] = {
-        ...data.blogs[blogIndex],
-        ...body,
-    };
-    writeData(data);
-    res.json({message: 'Blog updated successfully'})
+router.put('/:id', async (req, res) => {
+    const updates = req.body;
+    try {
+        const blog = await Blog.findOneAndUpdate({ id: req.params.id }, updates, { new: true });
+        if (!blog) {
+            return res.status(404).json({ message: "Blog not found" });
+        }
+        res.status(200).json({ blog: blog });
+    } catch (error) {
+        res.status(500).json({ message: "Server error " + error.message });
+    }
 });
 
 //para borrar un blog existente
-router.delete('/blogs/:id', (req, res) => {
-    const data = readData();
-    const id = parseInt(req.params.id);
-    const blogIndex = data.blogs.findIndex((blog) => blog.id === id);
-    data.blogs.splice(blogIndex, 1);
-    writeData(data);
-    res.json({ message: 'Book deleted successfully' });
+router.delete('/:id', async (req, res) => {
+    try {
+        const blog = await Blog.findOneAndDelete({ id: req.params.id });
+        if (!blog) {
+            return res.status(404).json({ message: "Blog not found" });
+        }
+
+        res.status(200).json({ blog: blog });
+    } catch (error) {
+        res.status(404).json({ message: "Server error " + error.message });
+    }
 });
 
 export default router;
