@@ -17,10 +17,17 @@ mongoose.connect(DB_URL)
 app.use(morgan('dev'));
 app.use(express.json());
 
+app.use(function(req, res, next){
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-HEaders', 'Content-Type');
+    next();
+})
+
 app.get('/', (req, res) =>{
     res.status(200).send('My first API blog');
 });
 
-app.use('/api/blogs', blogRoutes);
+app.use('/api/', blogRoutes);
 
 export default app;

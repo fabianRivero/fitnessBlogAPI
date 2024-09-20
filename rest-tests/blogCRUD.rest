@@ -1,0 +1,32 @@
+POST HTTP://localhost:4000/api/blogs HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "titulo de prueba 9",
+    "tags": ["tag6"],
+    "cardImage": "img6",
+    "content": "contenido 6"
+}
+
+###
+
+GET HTTP://localhost:4000/api/blogs HTTP/1.1
+
+###
+
+GET HTTP://localhost:4000/api/blogs/2281742a-774e-4514-b0cc-214adc872333 HTTP/1.1
+
+###
+
+PUT HTTP://localhost:4000/api/blogs/2281742a-774e-4514-b0cc-214adc872333 HTTP/1.1
+Content-Type: application/json
+
+{
+    "title": "titulo de prueba (editado)",
+    "cardImage": "img (editado)",
+    "content": "contenido (editado)"
+}
+
+###
+
+DELETE HTTP://localhost:4000/api/blogs/a3935651-358b-48df-8e7c-7df55bce141c HTTP/1.1

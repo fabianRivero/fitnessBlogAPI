@@ -4,7 +4,7 @@ import Blog from '../models/blog.js';
 const router = express.Router();
 
 //para obtener todos los blogs
-router.get('/all-blogs', async (req, res) => {
+router.get('/blogs', async (req, res) => {
     try {
         const blogs = await Blog.find({});
         res.status(200).json({blogs: blogs});    
@@ -14,7 +14,7 @@ router.get('/all-blogs', async (req, res) => {
 });
 
 //para obtener un blog en especifico
-router.get("/:id", async (req, res) => {
+router.get("/blogs/:id", async (req, res) => {
 try {
     //const blog = await Blog.findById(req.params.id); este metodo usa el id de mongoose
     const blog = await Blog.findOne({ id: req.params.id });
@@ -28,8 +28,8 @@ try {
 });
 
 //para crear un nuevo blog
-//POST api/blogs/new-blog
-router.post("/new-blog", async (req, res) => {
+//POST api/blogs/all-blogs
+router.post("/blogs", async (req, res) => {
     let blog;
     blog = new Blog({
         id: req.body.id,
@@ -47,15 +47,10 @@ router.post("/new-blog", async (req, res) => {
     } catch (error) {
         res.status(500).send('something went wrong.', error);
     };
-
-    res.status(201).send({ blog: {
-        title: blog.title,
-        publicationDate: blog.publicationDate
-    }});
 });
 
 //para editar un blog existente
-router.put('/:id', async (req, res) => {
+router.put('/blogs/:id', async (req, res) => {
     const updates = req.body;
     try {
         const blog = await Blog.findOneAndUpdate({ id: req.params.id }, updates, { new: true });
@@ -69,7 +64,7 @@ router.put('/:id', async (req, res) => {
 });
 
 //para borrar un blog existente
-router.delete('/:id', async (req, res) => {
+router.delete('/blogs/:id', async (req, res) => {
     try {
         const blog = await Blog.findOneAndDelete({ id: req.params.id });
         if (!blog) {
