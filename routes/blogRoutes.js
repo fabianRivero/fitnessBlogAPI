@@ -1,5 +1,5 @@
 import express from 'express';
-import Blog from '../models/blog.js';
+import Blog from '../models/Blog.js';
 
 const router = express.Router();
 
@@ -34,6 +34,7 @@ router.post("/blogs", async (req, res) => {
     blog = new Blog({
         id: req.body.id,
         title: req.body.title,
+        linkTitle: req.body.linkTitle,
         //description: req.body.description,
         publicationDate: req.body.publicationDate,
         tags: req.body.tags,
