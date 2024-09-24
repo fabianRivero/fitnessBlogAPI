@@ -3,6 +3,7 @@ Content-Type: application/json
 
 {
     "title": "titulo de prueba1",
+    "linkTitle": "titulo_de_prueba1",
     "tags": ["tag1"],
     "cardImage": "img1",
     "content": "contenido1"
@@ -18,15 +19,13 @@ GET HTTP://localhost:4000/api/blogs/2281742a-774e-4514-b0cc-214adc872333 HTTP/1.
 
 ###
 
-PUT HTTP://localhost:4000/api/blogs/2281742a-774e-4514-b0cc-214adc872333 HTTP/1.1
+PUT HTTP://localhost:4000/api/blogs/3fcd2db7-aafa-4025-98d9-bfa1fb858e35 HTTP/1.1
 Content-Type: application/json
 
 {
-    "title": "titulo de prueba (editado)",
-    "cardImage": "img (editado)",
-    "content": "contenido (editado)"
+    "title": "Blog de prueba 1"
 }
 
 ###
 
-DELETE HTTP://localhost:4000/api/blogs/5b8985b5-f2fc-475a-9649-b941d996053e HTTP/1.1
+DELETE HTTP://localhost:4000/api/blogs/19a368a1-0307-48d3-b3e9-6248be25daa3 HTTP/1.1
