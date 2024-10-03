@@ -5,10 +5,10 @@ const blogSchema = new mongoose.Schema({
     id: { type: String, default: uuidv4,  required: true, unique: true },
     title: { type: String, required: true }, 
     linkTitle: { type: String, required: true },     
-    //description: { type: String, required: true },
+    description: { type: String, required: true },
     publicationDate: { type: String, default: `${+new Date().getDate()}/${+new Date().getMonth()+1}/${+new Date().getFullYear()}`, required: true },
     tags: {type: Array, required: true },
-    cardImage: { type: String, required: true },
+    cardImage: {type: String, required: true },
     content: { type: String, required: true },
     extendedDate: { type: Date, default: new Date(), required: true }
 }, 

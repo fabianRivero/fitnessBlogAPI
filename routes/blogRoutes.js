@@ -1,5 +1,7 @@
 import express from 'express';
 import Blog from '../models/Blog.js';
+import auth from '../middlewares/auth.js';
+import admin from '../middlewares/admin.js';
 
 const router = express.Router();
 
@@ -29,13 +31,13 @@ try {
 
 //para crear un nuevo blog
 //POST api/blogs/all-blogs
-router.post("/blogs", async (req, res) => {
+router.post("/blogs", [auth, admin], async (req, res) => {
     let blog;
     blog = new Blog({
-        id: req.body.id,
+        id: req.user.id,
         title: req.body.title,
         linkTitle: req.body.linkTitle,
-        //description: req.body.description,
+        description: req.body.description,
         publicationDate: req.body.publicationDate,
         tags: req.body.tags,
         cardImage: req.body.cardImage,
@@ -51,7 +53,7 @@ router.post("/blogs", async (req, res) => {
 });
 
 //para editar un blog existente
-router.put('/blogs/:id', async (req, res) => {
+router.put('/blogs/:id', [auth, admin], async (req, res) => {
     const updates = req.body;
     try {
         const blog = await Blog.findOneAndUpdate({ id: req.params.id }, updates, { new: true });
@@ -65,7 +67,7 @@ router.put('/blogs/:id', async (req, res) => {
 });
 
 //para borrar un blog existente
-router.delete('/blogs/:id', async (req, res) => {
+router.delete('/blogs/:id', [auth, admin], async (req, res) => {
     try {
         const blog = await Blog.findOneAndDelete({ id: req.params.id });
         if (!blog) {

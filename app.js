@@ -1,8 +1,10 @@
 import "dotenv/config";
 import mongoose from "mongoose";
 import express from "express";
+import cors from "cors";
 import morgan from 'morgan';
-import blogRoutes from './routes/blogRoutes.js'
+import blogRoutes from './routes/blogRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 const app = express();
 const DB_URL = process.env.DB_URL === "test"
@@ -13,9 +15,17 @@ mongoose.connect(DB_URL)
 .then(() => console.log(`conected to ${DB_URL}`))
 .catch(err => console.error("Failed to conect to MongoDB", err));
 
+
+// const corsOptions = {
+//     origin: 'http://localhost:4000/api/blogs', 
+//     methods: 'GET,PUT,POST,DELETE', 
+//     optionsSuccessStatus: 200, 
+//   };
+
 //middlewares
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cors());
 
 app.use(function(req, res, next){
     res.header('Access-Control-Allow-Origin', '*');
@@ -29,5 +39,6 @@ app.get('/', (req, res) =>{
 });
 
 app.use('/api/', blogRoutes);
+app.use('/api/', userRoutes);
 
 export default app;
