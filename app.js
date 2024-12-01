@@ -15,13 +15,6 @@ mongoose.connect(DB_URL)
 .then(() => console.log(`conected to ${DB_URL}`))
 .catch(err => console.error("Failed to conect to MongoDB", err));
 
-
-// const corsOptions = {
-//     origin: 'http://localhost:4000/api/blogs', 
-//     methods: 'GET,PUT,POST,DELETE', 
-//     optionsSuccessStatus: 200, 
-//   };
-
 //middlewares
 app.use(morgan('dev'));
 app.use(express.json());

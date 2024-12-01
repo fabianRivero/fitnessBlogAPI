@@ -10,7 +10,9 @@ const blogSchema = new mongoose.Schema({
     tags: {type: Array, required: true },
     cardImage: {type: String, required: true },
     content: { type: String, required: true },
-    extendedDate: { type: Date, default: new Date(), required: true }
+    extendedDate: { type: Date, default: new Date(), required: true },
+    usersComments: {type: Array, required: true},
+    usersLikes: {type: Array, required: true}
 }, 
 {
     toJSON: {

@@ -7,7 +7,10 @@ const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     password: { type: String, required: true, minlength: 8 },
-    role: { type: String, required: true, enum: ["user", "admin"], default: "user" }
+    role: { type: String, required: true, enum: ["user", "admin"], default: "user" },
+    blogsCommented: {type: Array, required: true},
+    blogsLiked: {type: Array, required: true}
+
 }, {
     toJSON: {
         transform: function(doc, ret){

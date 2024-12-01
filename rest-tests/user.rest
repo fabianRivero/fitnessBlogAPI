@@ -17,3 +17,11 @@ Content-Type: application/json
     "email": "admin@email.com",
     "password": "12345678"
 }
+
+###
+
+GET http://localhost:4000/api/users/ HTTP/1.1
+
+###
+
+GET http://localhost:4000/api/users/91f3fa65-9ae5-4a0f-acd7-0a50363c504f HTTP/1.1
